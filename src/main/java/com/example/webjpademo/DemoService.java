@@ -6,9 +6,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class DemoService {
