@@ -16,7 +16,7 @@ public class Customer {
     private String lastName;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Remarks> remarks; // = new ArrayList<>();
+    private List<Remarks> remarks = new ArrayList<>();
 
     protected Customer() { }
 

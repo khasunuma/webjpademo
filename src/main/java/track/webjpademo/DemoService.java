@@ -15,11 +15,8 @@ public class DemoService {
 
     private final CustomerRepository repository;
 
-    private final RemarksRepository remarksRepository;
-
-    public DemoService(CustomerRepository repository, RemarksRepository remarksRepository) {
+    public DemoService(CustomerRepository repository) {
         this.repository = repository;
-        this.remarksRepository = remarksRepository;
     }
 
     @Bean
@@ -36,18 +33,28 @@ public class DemoService {
             Remarks remarks3 = new Remarks("*3");
             Remarks remarks4 = new Remarks("*4");
             Remarks remarks5 = new Remarks("*5");
+            Remarks remarks6 = new Remarks("*6");
+            Remarks remarks7 = new Remarks("*7");
+            Remarks remarks8 = new Remarks("*8");
+            Remarks remarks9 = new Remarks("*9");
+            Remarks remarks0 = new Remarks("*0");
 
-            customer1.setRemarks(Arrays.asList(remarks1));
-            customer2.setRemarks(Arrays.asList(remarks2));
-            customer3.setRemarks(Arrays.asList(remarks3));
-            customer4.setRemarks(Arrays.asList(remarks4));
-            customer5.setRemarks(Arrays.asList(remarks5));
+            customer1.getRemarks().add(remarks1);
+            customer2.getRemarks().add(remarks2);
+            customer3.getRemarks().add(remarks3);
+            customer4.getRemarks().add(remarks4);
+            customer5.getRemarks().add(remarks5);
+            customer1.getRemarks().add(remarks6);
+            customer2.getRemarks().add(remarks7);
+            customer3.getRemarks().add(remarks8);
+            customer4.getRemarks().add(remarks9);
+            customer5.getRemarks().add(remarks0);
 
-            repository.save(customer1);
-            repository.save(customer2);
-            repository.save(customer3);
-            repository.save(customer4);
-            repository.save(customer5);
+            repository.saveAndFlush(customer1);
+            repository.saveAndFlush(customer2);
+            repository.saveAndFlush(customer3);
+            repository.saveAndFlush(customer4);
+            repository.saveAndFlush(customer5);
 
             // fetch all customers
             log.info("Customers found with findAll():");

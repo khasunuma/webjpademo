@@ -9,6 +9,15 @@ import org.hibernate.type.StringType;
 
 import java.sql.Types;
 
+/**
+ * Override Hibernate's dialect for adaption to SQLite.
+ *
+ * <p>This class is based on the following pages. However, both page are partially incorrect.</p>
+ * <ul>
+ *     <li>https://www.baeldung.com/spring-boot-sqlite</li>
+ *     <li>https://fullstackdeveloper.guru/2020/05/01/how-to-integrate-sqlite-database-with-spring-boot/</li>
+ * </ul>
+ */
 public class SQLiteDialect extends Dialect {
 
     public SQLiteDialect() {
@@ -43,36 +52,36 @@ public class SQLiteDialect extends Dialect {
         registerFunction("substring", new StandardSQLFunction("substr", StringType.INSTANCE));
     }
 
-    @Override
-    public IdentityColumnSupport getIdentityColumnSupport() {
-        return new SQLiteIdentityColumnSupport();
+
+//    @Override
+    public boolean hasDataTypeInIdentityColumn() {
+        return false; // As specify in NHibernate dialect
     }
 
     @Override
-    public boolean hasAlterTable() {
+    public boolean supportsLimit() {
+        return true;
+    }
+
+    @Override
+    protected String getLimitString(String query, boolean hasOffset) {
+        return query + (hasOffset ? " limit ? offset ?" : " limit ?");
+    }
+
+//    @Override
+    public boolean supportsTemporaryTables() {
+        return true;
+    }
+
+//    @Override
+    public String getCreateTemporaryTableString() {
+        return "create temporary table if not exists";
+    }
+
+//    @Override
+    public boolean dropTemporaryTableAfterUse() {
         return false;
     }
-
-    @Override
-    public boolean dropConstraints() {
-        return false;
-    }
-
-    @Override
-    public String getDropForeignKeyString() {
-        return "";
-    }
-
-    @Override
-    public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable, String[] primaryKey, boolean referencesPrimaryKey) {
-        return "";
-    }
-
-    @Override
-    public String getAddPrimaryKeyConstraintString(String constraintName) {
-        return "";
-    }
-
 
     @Override
     public boolean supportsCurrentTimestampSelection() {
@@ -95,6 +104,16 @@ public class SQLiteDialect extends Dialect {
     }
 
     @Override
+    public boolean hasAlterTable() {
+        return false; // As specify in NHibernate dialect
+    }
+
+    @Override
+    public boolean dropConstraints() {
+        return false;
+    }
+
+    @Override
     public String getAddColumnString() {
         return "add column";
     }
@@ -110,6 +129,22 @@ public class SQLiteDialect extends Dialect {
     }
 
     @Override
+    public String getDropForeignKeyString() {
+        throw new UnsupportedOperationException("No drop foreign key syntax supported by SQLiteDialect");
+    }
+
+    @Override
+    public String getAddForeignKeyConstraintString(String constraintName, String[] foreignKey, String referencedTable,
+                                                   String[] primaryKey, boolean referencesPrimaryKey) {
+        throw new UnsupportedOperationException("No add foreign key syntax supported by SQLiteDialect");
+    }
+
+    @Override
+    public String getAddPrimaryKeyConstraintString(String constraintName) {
+        throw new UnsupportedOperationException("No add primary key syntax supported by SQLiteDialect");
+    }
+
+    @Override
     public boolean supportsIfExistsBeforeTableName() {
         return true;
     }
@@ -117,6 +152,11 @@ public class SQLiteDialect extends Dialect {
     @Override
     public boolean supportsCascadeDelete() {
         return false;
+    }
+
+    @Override
+    public IdentityColumnSupport getIdentityColumnSupport() {
+        return new SQLiteIdentityColumnSupport();
     }
 
 }
