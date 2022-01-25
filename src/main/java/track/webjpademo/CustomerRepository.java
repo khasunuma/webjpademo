@@ -1,4 +1,4 @@
-package com.example.webjpademo;
+package track.webjpademo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

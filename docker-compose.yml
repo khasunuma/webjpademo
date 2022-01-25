@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  webapp:
+    image: maven:3.8.4-jdk-8
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD:/usr/src/myapp
+    working_dir: /usr/src/myapp
+    command: mvn clean spring-boot:run

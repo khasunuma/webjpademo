@@ -1,4 +1,4 @@
-package com.example.webjpademo;
+package track.webjpademo;
 
 public class Person {
 

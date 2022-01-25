@@ -1,4 +1,4 @@
-package com.example.webjpademo;
+package track.webjpademo;
 
 import javax.persistence.*;
 
@@ -6,13 +6,13 @@ import javax.persistence.*;
 public class Remarks {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue //(strategy = GenerationType.AUTO)
     private Long num;
 
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "id")
     private Customer customer;
 
     protected Remarks() { }

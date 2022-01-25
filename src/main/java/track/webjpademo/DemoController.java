@@ -1,4 +1,4 @@
-package com.example.webjpademo;
+package track.webjpademo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -34,9 +34,9 @@ public class DemoController {
         return list;
     }
 
-    @PostMapping("/customers")
-    public Customer createCustomer(@RequestBody Person person) {
-        return repository.save(new Customer(person.getFirstName(), person.getLastName()));
-    }
+//    @PostMapping("/customers")
+//    public Customer createCustomer(@RequestBody Person person) {
+//        return repository.save(new Customer(person.getFirstName(), person.getLastName()));
+//    }
 
 }

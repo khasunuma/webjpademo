@@ -1,4 +1,4 @@
-package com.example.webjpademo;
+package track.webjpademo;
 
 import javax.persistence.*;
 import java.util.ArrayList;
