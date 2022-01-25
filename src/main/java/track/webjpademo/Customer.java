@@ -16,7 +16,7 @@ public class Customer {
     private String lastName;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private List<Remarks> remarks = new ArrayList<>();
+    private List<Remarks> remarks;
 
     protected Customer() { }
 
@@ -27,7 +27,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return String.format("Customer[id=%d, firstName='%s', lastName='%s']", id, firstName, lastName);
+        return String.format("{'id': %d, 'firstName': '%s', 'lastName': '%s'}", id, firstName, lastName);
     }
 
     public Long getId() {

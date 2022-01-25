@@ -21,9 +21,14 @@ public class Remarks {
         this.text = text;
     }
 
+    public Remarks(String text, Customer customer) {
+        this.text = text;
+        this.customer = customer;
+    }
+
     @Override
     public String toString() {
-        return String.format("%d: %s", num, text);
+        return String.format("{%d: '%s'}", num, text);
     }
 
     public Long getNum() {

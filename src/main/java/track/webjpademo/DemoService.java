@@ -15,53 +15,37 @@ public class DemoService {
 
     private final CustomerRepository repository;
 
-    public DemoService(CustomerRepository repository) {
+    private final RemarksRepository remarksRepository;
+
+    public DemoService(CustomerRepository repository, RemarksRepository remarksRepository) {
         this.repository = repository;
+        this.remarksRepository = remarksRepository;
     }
 
     @Bean
     public CommandLineRunner getCustomer() {
         return (args) -> {
-            Customer customer1 = new Customer("Jack", "Bauer");
-            Customer customer2 = new Customer("Chloe", "O'Brian");
-            Customer customer3 = new Customer("Kim", "Bauer");
-            Customer customer4 = new Customer("David", "Palmer");
-            Customer customer5 = new Customer("Michelle", "Dessler");
+            Customer customer1 = repository.save(new Customer("Jack", "Bauer"));
+            Customer customer2 = repository.save(new Customer("Chloe", "O'Brian"));
+            Customer customer3 = repository.save(new Customer("Kim", "Bauer"));
+            Customer customer4 = repository.save(new Customer("David", "Palmer"));
+            Customer customer5 = repository.save(new Customer("Michelle", "Dessler"));
 
-            Remarks remarks1 = new Remarks("*1");
-            Remarks remarks2 = new Remarks("*2");
-            Remarks remarks3 = new Remarks("*3");
-            Remarks remarks4 = new Remarks("*4");
-            Remarks remarks5 = new Remarks("*5");
-            Remarks remarks6 = new Remarks("*6");
-            Remarks remarks7 = new Remarks("*7");
-            Remarks remarks8 = new Remarks("*8");
-            Remarks remarks9 = new Remarks("*9");
-            Remarks remarks0 = new Remarks("*0");
-
-            customer1.getRemarks().add(remarks1);
-            customer2.getRemarks().add(remarks2);
-            customer3.getRemarks().add(remarks3);
-            customer4.getRemarks().add(remarks4);
-            customer5.getRemarks().add(remarks5);
-            customer1.getRemarks().add(remarks6);
-            customer2.getRemarks().add(remarks7);
-            customer3.getRemarks().add(remarks8);
-            customer4.getRemarks().add(remarks9);
-            customer5.getRemarks().add(remarks0);
-
-            repository.saveAndFlush(customer1);
-            repository.saveAndFlush(customer2);
-            repository.saveAndFlush(customer3);
-            repository.saveAndFlush(customer4);
-            repository.saveAndFlush(customer5);
+            Remarks remarks1 = remarksRepository.save(new Remarks("Remarks #1", customer1));
+            Remarks remarks2 = remarksRepository.save(new Remarks("Remarks #2", customer2));
+            Remarks remarks3 = remarksRepository.save(new Remarks("Remarks #3", customer3));
+            Remarks remarks4 = remarksRepository.save(new Remarks("Remarks #4", customer4));
+            Remarks remarks5 = remarksRepository.save(new Remarks("Remarks #5", customer5));
+            Remarks remarks6 = remarksRepository.save(new Remarks("Remarks #6", customer1));
+            Remarks remarks7 = remarksRepository.save(new Remarks("Remarks #7", customer1));
+            Remarks remarks8 = remarksRepository.save(new Remarks("Remarks #8", customer2));
 
             // fetch all customers
             log.info("Customers found with findAll():");
             log.info("-------------------------------");
             for (Customer customer : repository.findAll()) {
-                log.info(customer.toString());
-                log.info(customer.getRemarks().toString());
+                log.info(String.format("Customer %s", customer.toString()));
+                log.info(String.format("Remarks %s", customer.getRemarks().toString()));
             }
         };
     }

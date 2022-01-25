@@ -34,9 +34,11 @@ public class DemoController {
         return list;
     }
 
-//    @PostMapping("/customers")
-//    public Customer createCustomer(@RequestBody Person person) {
-//        return repository.save(new Customer(person.getFirstName(), person.getLastName()));
-//    }
+    @PostMapping("/customers")
+    public Customer createCustomer(@RequestBody Person person) {
+        Customer customer = repository.save(new Customer(person.getFirstName(), person.getLastName()));
+        remarksRepository.save(new Remarks(person.toString(), customer));
+        return customer;
+    }
 
 }
