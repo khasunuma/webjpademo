@@ -11,6 +11,14 @@ public class Remarks {
 
     private String text;
 
+    /*
+     * Remarks エンティティを紐付ける先の Customer エンティティへの参照を保持します。
+     * 有効な Customer エンティティを設定して persist することで Remarks エンティティの内容がデータベースに保存されます。
+     *
+     * @ManyToOne アノテーションは必須です。これがない場合はリレーションが設定されません。
+     * @JoinColumn アノテーションは任意で、name 属性は外部キーを表すものの名前となります。
+     * @JoinColumn を省略した場合は、この場合は name 属性に customer_id が指定されたものと見なされます。
+     */
     @ManyToOne
     @JoinColumn(name = "id")
     private Customer customer;
